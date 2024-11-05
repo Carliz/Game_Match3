@@ -341,9 +341,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &996125312
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 996125314}
+  - component: {fileID: 996125313}
+  m_Layer: 0
+  m_Name: Board
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &996125313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996125312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c5c972ec80c24c68af8bc6b0f0533d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 6
+  height: 10
+  tileObject: {fileID: 6247905668069557586, guid: 563fe33ca7d92446e992adb57cfe136d, type: 3}
+  cameraSizeOffset: 0
+  cameraVerticalOffset: 0
+  availablePieces:
+  - {fileID: 7487712086210558733, guid: 710a3e9aa0322457e9ca457392f42284, type: 3}
+  - {fileID: 8452598114210948244, guid: 4f6f6d7a9904c4a8985bff8567c59ec0, type: 3}
+  - {fileID: 1885789985866235625, guid: 3a9ae10e281c545a4b46eda971d3a54a, type: 3}
+  - {fileID: 2970481237821120971, guid: f6feb1e8d7d9047d9b7dded50fda0dff, type: 3}
+  - {fileID: 7233321506895829587, guid: 176a95c7fe98849048f995843ed2a39a, type: 3}
+  - {fileID: 8695844517641922028, guid: 2c6a2716d41b84669b799aee7667cf83, type: 3}
+  - {fileID: 3432029162417466240, guid: d6a109eada5ec4a54809f3d8af3cfc1c, type: 3}
+--- !u!4 &996125314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996125312}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 619394802}
+  - {fileID: 996125314}
