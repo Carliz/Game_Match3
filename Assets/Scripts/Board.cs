@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Board : MonoBehaviour
@@ -80,7 +81,7 @@ public class Board : MonoBehaviour
 
     public void TileUp(Tile tile_)
     {
-        if(startTile != null && endTile != null)
+        if(startTile != null && endTile != null && IsCloseTo(startTile, endTile))
         {
             SwapTiles();
         }
@@ -98,5 +99,73 @@ public class Board : MonoBehaviour
 
         Pieces[startTile.x, startTile.y] = EndPiece;
         Pieces[endTile.x, endTile.y] = StartPiece;
+    }
+
+    private bool IsCloseTo(Tile start, Tile end)
+    {
+        if(Math.Abs((start.x-end.x)) ==1 && start.y == end.y) //mismo eje horizontal
+        {
+            return true;
+        }
+        if(Math.Abs((start.y - end.y)) == 1 && start.x == end.x ) //mismo eje vertical
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private List<Piece> GetMatchByDirection(int xpos, int ypos, Vector2 direction, int minPieces = 3) 
+    {
+        List<Piece> matches = new List<Piece>();
+        Piece startPiece = Pieces[xpos, ypos];
+        matches.Add(startPiece);
+
+        int nextX;
+        int nextY;
+        int maxValue = width > height ? width : height;
+
+        for(int i=1; i<maxValue; i++)
+        {
+            nextX = xpos + (int)direction.x * i;
+            nextY = ypos + (int)direction.y * i;
+
+            if(nextX >= 0 && nextX<width && nextY>=0 && nextY<height)
+            {
+                var nextPiece = Pieces[nextX, nextY];
+                if (nextPiece != null && nextPiece.pieceType == startPiece.pieceType)
+                    matches.Add(nextPiece);
+                else
+                {
+                    break;
+                }
+            }           
+        }
+        if (matches.Count >= minPieces)
+            return matches;
+        return null;
+    }
+
+    private List<Piece> GetMatchByPiece(int xpos, int ypos, int minPieces = 3)
+    {
+        var upMatchs = GetMatchByDirection(xpos, ypos, new Vector2(0, 1), 2);
+        var downMatchs = GetMatchByDirection(xpos, ypos, new Vector2(0, -1), 2);
+        var rightMatchs = GetMatchByDirection(xpos, ypos, new Vector2(1, 0), 2);
+        var leftMatchs = GetMatchByDirection(xpos, ypos, new Vector2(-1, 0), 2);
+
+        if (upMatchs == null) upMatchs = new List<Piece>();
+        if (downMatchs == null) downMatchs = new List<Piece>();
+        if (rightMatchs == null) rightMatchs = new List<Piece>();
+        if (leftMatchs == null) leftMatchs = new List<Piece>();
+
+        var verticalMatches = upMatchs.Union(downMatchs).ToList();
+        var horizontalMatches = leftMatchs.Union(rightMatchs).ToList();
+
+        var foundMatches = new List<Piece>();
+        if (verticalMatches.Count >= minPieces)
+            foundMatches.Union(verticalMatches).ToList();
+        if (horizontalMatches.Count >= minPieces)
+            foundMatches.Union(horizontalMatches).ToList();
+
+        return foundMatches;
     }
 }
