@@ -14,6 +14,7 @@ public class Board : MonoBehaviour
     [SerializeField] private float cameraSizeOffset;
     [SerializeField] private float cameraVerticalOffset;
 
+    [SerializeField] private int pointsPerMatch;
     [SerializeField] private GameObject[] availablePieces;
 
     Tile[,] Tiles;
@@ -113,19 +114,19 @@ public class Board : MonoBehaviour
 
     public void TileDown(Tile tile_)
     {
-        if(!swappingPieces)
+        if(!swappingPieces && GameManager.Instance.gameState==GameManager.GameState.InGame)
             startTile = tile_;
     }
 
     public void TileOver(Tile tile_)
     {
-        if(!swappingPieces)
+        if(!swappingPieces && GameManager.Instance.gameState == GameManager.GameState.InGame)
             endTile = tile_;
     }
 
     public void TileUp(Tile tile_)
     {
-        if (!swappingPieces)
+        if (!swappingPieces && GameManager.Instance.gameState == GameManager.GameState.InGame)
         {
             if (startTile != null && endTile != null && IsCloseTo(startTile, endTile))
             {
@@ -165,6 +166,7 @@ public class Board : MonoBehaviour
         else
         {
             ClearPieces(allMatches);
+            AwardPoints(allMatches);
         }
 
         startTile = null;
@@ -201,6 +203,7 @@ public class Board : MonoBehaviour
             {
                 newMatches = newMatches.Union(matches).ToList();
                 ClearPieces(matches);
+                AwardPoints(matches);
             }
         });
 
@@ -355,4 +358,8 @@ public class Board : MonoBehaviour
         return foundMatches;
     }
 
+    private void AwardPoints(List<Piece> allmatches)
+    {
+        GameManager.Instance.AddPoints(allmatches.Count * pointsPerMatch);
+    }
 }

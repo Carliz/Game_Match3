@@ -1,0 +1,59 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+
+public class GameManager : MonoBehaviour
+{
+    public static GameManager Instance;
+    [SerializeField] public float timeToMatch = 10f;
+    [SerializeField] public float currentTimeToMatch = 0f;
+
+    public int points = 0;
+    public UnityEvent OnPointsUpdated;
+    public UnityEvent<GameState> OnGameStateUpdated; //recibe un parametro de tipo GameState
+
+    public enum GameState
+    {
+        Idle,
+        InGame,
+        GameOver
+    }
+
+    public GameState gameState;
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void AddPoints(int newPoints)
+    {
+        points += newPoints;
+        OnPointsUpdated?.Invoke(); //? para ver si existe, si un obj se suscribio ejecuta el codigo
+        currentTimeToMatch = 0f;
+    }
+
+
+
+    private void Update()
+    {
+        if(gameState == GameState.InGame)
+        {
+            currentTimeToMatch += Time.deltaTime;
+            if(currentTimeToMatch > timeToMatch)
+            {
+                gameState = GameState.GameOver;
+                //cada vez que cambie el estado del juego otros elementos se pueden suscribir
+                OnGameStateUpdated?.Invoke(gameState);
+            }
+        }
+    }
+}
