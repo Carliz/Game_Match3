@@ -41,8 +41,6 @@ public class GameManager : MonoBehaviour
         currentTimeToMatch = 0f;
     }
 
-
-
     private void Update()
     {
         if(gameState == GameState.InGame)
@@ -55,5 +53,18 @@ public class GameManager : MonoBehaviour
                 OnGameStateUpdated?.Invoke(gameState);
             }
         }
+    }
+
+    public void RestartGame()
+    {
+        points = 0;
+        gameState = GameState.InGame;
+        OnGameStateUpdated.Invoke(gameState);
+        currentTimeToMatch = 0f;
+    }
+
+    public void ExitGame()
+    {
+
     }
 }
