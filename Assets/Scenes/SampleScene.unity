@@ -370,6 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5c972ec80c24c68af8bc6b0f0533d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeBetweenPieces: 0.02
   width: 6
   height: 10
   tileObject: {fileID: 6247905668069557586, guid: 563fe33ca7d92446e992adb57cfe136d, type: 3}
@@ -380,9 +381,6 @@ MonoBehaviour:
   - {fileID: 8452598114210948244, guid: 4f6f6d7a9904c4a8985bff8567c59ec0, type: 3}
   - {fileID: 1885789985866235625, guid: 3a9ae10e281c545a4b46eda971d3a54a, type: 3}
   - {fileID: 2970481237821120971, guid: f6feb1e8d7d9047d9b7dded50fda0dff, type: 3}
-  - {fileID: 7233321506895829587, guid: 176a95c7fe98849048f995843ed2a39a, type: 3}
-  - {fileID: 8695844517641922028, guid: 2c6a2716d41b84669b799aee7667cf83, type: 3}
-  - {fileID: 3432029162417466240, guid: d6a109eada5ec4a54809f3d8af3cfc1c, type: 3}
 --- !u!4 &996125314
 Transform:
   m_ObjectHideFlags: 0
