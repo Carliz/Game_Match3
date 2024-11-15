@@ -181,7 +181,7 @@ public class Board : MonoBehaviour
             ClearPieceAt(piece.x, piece.y);
         });
         List<int> columns = GetColumns(piecesToClear);
-        List<Piece> collapsedPieces =  collapseColumns(columns, 0.3f);
+        List<Piece> collapsedPieces =  CollapseColumns(columns, 0.3f);
         FindMatchsRecursively(collapsedPieces);
     }
 
@@ -206,7 +206,7 @@ public class Board : MonoBehaviour
 
         if(newMatches.Count > 0)
         {
-            var newCollapsedPieces = collapseColumns(GetColumns(newMatches), 0.3f);
+            var newCollapsedPieces = CollapseColumns(GetColumns(newMatches), 0.3f);
             FindMatchsRecursively(newCollapsedPieces);
         }
         else
@@ -233,7 +233,7 @@ public class Board : MonoBehaviour
         return result;
     }
 
-    private List<Piece> collapseColumns(List<int> columns, float timeToCollapse)
+    private List<Piece> CollapseColumns(List<int> columns, float timeToCollapse)
     {
         List<Piece> movingPieces = new List<Piece>();
 
