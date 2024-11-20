@@ -5,19 +5,16 @@ using UnityEngine;
 public class HideObjectsOnGameState : MonoBehaviour
 {
     [SerializeField] private GameObject target;
-    [SerializeField] private GameManager.GameState hideOnState;
+    [SerializeField] private GameManager.GameState showOnState;
 
     private void Start()
     {
-        if(hideOnState == GameManager.Instance.gameState)
-        {
-            target.SetActive(false);
-        }
+        target.SetActive(showOnState == GameManager.Instance.gameState);    
         GameManager.Instance.OnGameStateUpdated.AddListener(GameStateUpdated);
     }
 
     private void GameStateUpdated(GameManager.GameState newState)
     {
-        target.SetActive(hideOnState != newState);
+        target.SetActive(showOnState == GameManager.Instance.gameState);      
     }
 }
