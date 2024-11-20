@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using DG.Tweening;
 
 public class UIPoints : MonoBehaviour
 {
     [SerializeField] private int displayPoints = 0;
     [SerializeField] private TextMeshProUGUI pointsLabel;
+    [SerializeField] private RectTransform icon;
 
     private void Start()
     {
@@ -38,12 +40,18 @@ public class UIPoints : MonoBehaviour
 
     private IEnumerator UpdatePointsCoroutine()
     {
+        var ogPosition = icon.anchoredPosition;
+        var tween = icon.DOShakeAnchorPos(0.25f, 20, 30).SetEase(Ease.InBounce);
+        //libreria de tweening para que una animación se repita cierta cnatidad de veces
+        tween.SetLoops(-1);
         while (displayPoints < GameManager.Instance.points)
         {
             displayPoints++;
-            pointsLabel.text = displayPoints.ToString();
+            pointsLabel.text = displayPoints.ToString("D5");
             yield return new WaitForSeconds(0.1f);
         }
+        tween.Kill(); //la animación se detiene
+        icon.anchoredPosition = ogPosition;
         yield return null;
     }
 }
