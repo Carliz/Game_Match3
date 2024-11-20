@@ -24,6 +24,7 @@ public class Board : MonoBehaviour
     Tile endTile;
 
     bool swappingPieces = false;
+    bool setupMade = false; //si es necesario hacer el setup del board
 
     // Start is called before the first frame update
     void Start()
@@ -31,10 +32,14 @@ public class Board : MonoBehaviour
         Tiles = new Tile[width, height];
         Pieces = new Piece[width, height];
 
-        SetupBoard();
-        PositionCamera();
+
         if(GameManager.Instance.gameState == GameManager.GameState.InGame)
+        {
+            setupMade = true;
+            SetupBoard();
+            PositionCamera();
             StartCoroutine(SetupPieces());
+        }
         GameManager.Instance.OnGameStateUpdated.AddListener(OnGameStateUpdated);
     }
 
@@ -47,6 +52,12 @@ public class Board : MonoBehaviour
     {
         if(newState == GameManager.GameState.InGame)
         {
+            if(!setupMade)
+            {
+                setupMade = true;
+                SetupBoard();
+                PositionCamera();
+            }
             StartCoroutine(SetupPieces());
         }
 
