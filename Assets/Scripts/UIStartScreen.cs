@@ -8,4 +8,9 @@ public class UIStartScreen : MonoBehaviour
     {
         GameManager.Instance.LevelSelection();
     }
+
+    public void OptionsButtonClicked()
+    {
+        GameManager.Instance.Options();
+    }
 }

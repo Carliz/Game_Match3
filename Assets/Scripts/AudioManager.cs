@@ -11,8 +11,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip missSFX;
     [SerializeField] private AudioClip matchSFX;
     [SerializeField] private AudioClip gameOverSFX;
-
     [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioSource musicSource;
 
 
     private void Awake()
@@ -66,5 +66,19 @@ public class AudioManager : MonoBehaviour
     public void Miss()
     {
         sfxSource.PlayOneShot(missSFX);
+    }
+
+    public void ChangeAudioSFX(int valueChange)
+    {
+        float newVolume = 0f;
+        newVolume = (float)valueChange / 10;        
+        sfxSource.volume = newVolume;
+    }
+
+    public void ChangeAudioMusic(int valueChange)
+    {
+        float newVolume = 0f;
+        newVolume = (float)valueChange / 10;       
+        musicSource.volume = newVolume;
     }
 }
